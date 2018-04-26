@@ -1,0 +1,65 @@
+FORMAT: 1A
+HOST: http://localhost:7000/v1
+
+# Region BR API
+
+br - API pública contendo as regiões, estados e cidades do Brasil.
+<br>en - API public contains all regions, states and cities from Brazil.
+
+# Group API-region-br
+
+## About [/]
+
+br - API construida com respostas em formato JSON (JavaScript Object Notation) utilizando os métodos de requisição do protocolo HTTP, sendo POST GET, HEAD e OPTIONS.
+<br>en - API built with JavaScript Object Notation (JSON) format using HTTP request methods, being POST GET, HEAD and OPTIONS.
+
+## Group States
+
+## Users [/states]
+
+### List all states [GET]
+
++ Request List all states
+
++ Response 200 (application/json)
+    + Attributes (array[States])
+
++ Response 404 (application/json)
+    + Attributes (Error)
+
++ Response 500 (application/json)
+    + Attributes (Error)
+
+## Users [/states/{id}]
+
+### List one state [GET]
+
++ Request List one state by id
+
++ Parameters
+    + id: 1 (number, required)
+
++ Response 200 (application/json)
+    + Attributes (array[States])
+
++ Response 400 (application/json)
+    + Attributes (Error)
+
++ Response 404 (application/json)
+    + Attributes (Error)
+
++ Response 500 (application/json)
+    + Attributes (Error)
+
+<!-- Structures -->
+# Data Structures
+
+## States (object)
++ id (number) - Code of state
++ initials (string) - Initials of state
++ name (string) - Name of state
+
+## Error (object)
++ code (number) - Status code
++ message (string) - Message of status
++ description (string) - Description of status
