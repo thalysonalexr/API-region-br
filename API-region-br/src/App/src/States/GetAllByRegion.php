@@ -10,7 +10,7 @@ use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Diactoros\Response\JsonResponse;
 
-class Get implements MiddlewareInterface
+class GetAllByRegion implements MiddlewareInterface
 {
     /**
      * {@inheritDoc}
@@ -23,9 +23,11 @@ class Get implements MiddlewareInterface
     }
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface
     {
-        $id = $request->getAttribute('id_state');
+        $id = $request->getAttribute('id_region');
 
-        if ( ! filter_var($id, FILTER_VALIDATE_INT)) {
+        if (filter_var($id, FILTER_VALIDATE_INT)) {
+            $field = 'id_region';
+        } else {
             return new JsonResponse(
                 [
                     'code' => 400,
@@ -36,7 +38,7 @@ class Get implements MiddlewareInterface
         }
 
         try {
-            $content = $this->tableGateway->select(['id' => $id])->toArray();
+            $content = $this->tableGateway->select([$field => $id])->toArray();
         } catch (\Exception $e) {
             return new JsonResponse(
                 [

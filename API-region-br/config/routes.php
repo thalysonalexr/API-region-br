@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Psr\Container\ContainerInterface;
 use Zend\Expressive\Application;
 use Zend\Expressive\MiddlewareFactory;
+use Zend\Diactoros\Response\JsonResponse;
 
 /**
  * Setup routes with a single request method:
@@ -33,8 +34,35 @@ use Zend\Expressive\MiddlewareFactory;
  * );
  */
 return function (Application $app, MiddlewareFactory $factory, ContainerInterface $container) : void {
+    // Default
     $app->get('/', App\Handler\HomePageHandler::class, 'home');
     $app->get('/api/ping', App\Handler\PingHandler::class, 'api.ping');
+
+    // First version this API
+    $app->get('/v1', function ($request, $handler) {
+        return new JsonResponse(
+            [
+                'version' => '1.0.0',
+                'description' => 'Access to all possible routes for regions, states and cities, with description of metadata in the response header.'
+            ]
+        );
+    }, 'api.v1.get');
+    
+    // Routes for Regions
+    $app->get('/v1/regions', App\Regions\GetAll::class, 'regions.all.get');
+    $app->get('/v1/regions/{id_region}', App\Regions\Get::class, 'regions.get');
+    $app->get('/v1/regions/{id_region}/states', App\States\GetAllByRegion::class, 'regions.states.all.get');
+    $app->get('/v1/regions/{id_region}/states/{id_state}', App\States\GetOneByRegion::class, 'regions.states.get');
+    $app->get('/v1/regions/{id_region}/states/{id_state}/cities', App\Cities\GetAllByRegionState::class, 'regions.states.cities.all.get');
+    $app->get('/v1/regions/{id_region}/states/{id_state}/cities/{id_city}', App\Cities\GetOneByRegionState::class, 'regions.states.cities.get');
+
+    // Routes for States
     $app->get('/v1/states', App\States\GetAll::class, 'states.all.get');
-    $app->get('/v1/states/{id}', App\States\Get::class, 'states.get');
+    $app->get('/v1/states/{id_state}', App\States\Get::class, 'states.get');
+    $app->get('/v1/states/{id_state}/cities', App\Cities\GetAllByState::class, 'states.cities.all.get');
+    $app->get('/v1/states/{id_state}/cities/{id_city}', App\Cities\GetOneByState::class, 'states.cities.get');
+
+    // Routes for Cities
+    $app->get('/v1/cities', App\Cities\GetAll::class, 'cities.all.get');
+    $app->get('/v1/cities/{id_city}', App\Cities\Get::class, 'cities.get');
 };

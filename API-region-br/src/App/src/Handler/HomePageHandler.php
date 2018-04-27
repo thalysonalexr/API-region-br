@@ -37,8 +37,8 @@ class HomePageHandler implements RequestHandlerInterface
     {
         if (! $this->template) {
             return new JsonResponse([
-                'welcome' => 'Congratulations! You have installed the zend-expressive skeleton application.',
-                'docsUrl' => 'https://docs.zendframework.com/zend-expressive/',
+                'welcome' => 'Welcome to API Public Region BR!',
+                'docsUrl' => 'https://thalysonrodrigues.github.io/API-region-br/',
             ]);
         }
 

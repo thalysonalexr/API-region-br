@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\States;
+namespace App\Regions;
 
 use Psr\Container\ContainerInterface;
 use Zend\Db\Adapter\Adapter;
@@ -14,7 +14,7 @@ class Factory
     {
         $config = $container->get('config');
         $adapter = new Adapter($config['db']);
-        $tableGateway = new TableGateway('STATES', $adapter);
+        $tableGateway = new TableGateway('REGIONS', $adapter);
 
         return new $requestedName($tableGateway);
     }

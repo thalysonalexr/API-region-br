@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\States;
+namespace App\Regions;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -23,7 +23,7 @@ class Get implements MiddlewareInterface
     }
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface
     {
-        $id = $request->getAttribute('id_state');
+        $id = $request->getAttribute('id_region');
 
         if ( ! filter_var($id, FILTER_VALIDATE_INT)) {
             return new JsonResponse(
@@ -51,7 +51,7 @@ class Get implements MiddlewareInterface
             return new JsonResponse(
                 [
                     'code' => 404,
-                    'message' => 'This state was not found',
+                    'message' => 'This region was not found',
                     'description' => 'Not Found'
                 ],
             404);

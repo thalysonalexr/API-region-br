@@ -2,30 +2,36 @@
 
 declare(strict_types=1);
 
-namespace App\States;
+namespace App\Cities;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Diactoros\Response\JsonResponse;
+use Zend\Db\Adapter\Adapter;
+use Zend\Db\TableGateway\TableGateway;
 
-class Get implements MiddlewareInterface
+class GetOneByRegionState implements MiddlewareInterface
 {
     /**
      * {@inheritDoc}
      */
     private $tableGateway;
+    private $adapter;
 
-    public function __construct($tableGateway)
+    public function __construct(TableGateway $tableGateway, Adapter $adapter = null)
     {
         $this->tableGateway = $tableGateway;
+        $this->adapter = $adapter;
     }
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface
     {
-        $id = $request->getAttribute('id_state');
+        $idRegion = $request->getAttribute('id_region');
+        $idState = $request->getAttribute('id_state');
+        $idCity = $request->getAttribute('id_city');
 
-        if ( ! filter_var($id, FILTER_VALIDATE_INT)) {
+        if (!filter_var($idRegion, FILTER_VALIDATE_INT) || !filter_var($idState, FILTER_VALIDATE_INT) || !filter_var($idCity, FILTER_VALIDATE_INT)) {
             return new JsonResponse(
                 [
                     'code' => 400,
@@ -36,7 +42,16 @@ class Get implements MiddlewareInterface
         }
 
         try {
-            $content = $this->tableGateway->select(['id' => $id])->toArray();
+            $content = $this->adapter->query(
+                'SELECT CITIES.id, CITIES.id_state, CITIES.name
+                FROM REGIONS, STATES, CITIES
+                WHERE REGIONS.id = STATES.id_region
+                AND STATES.id = CITIES.id_state
+                AND REGIONS.id = ?
+                AND STATES.id = ?
+                AND CITIES.id = ?',
+                [$idRegion, $idState, $idCity]
+            )->toArray();
         } catch (\Exception $e) {
             return new JsonResponse(
                 [

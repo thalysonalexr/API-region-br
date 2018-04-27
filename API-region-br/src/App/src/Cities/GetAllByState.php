@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\States;
+namespace App\Cities;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -10,7 +10,7 @@ use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Diactoros\Response\JsonResponse;
 
-class Get implements MiddlewareInterface
+class GetAllByState implements MiddlewareInterface
 {
     /**
      * {@inheritDoc}
@@ -36,7 +36,7 @@ class Get implements MiddlewareInterface
         }
 
         try {
-            $content = $this->tableGateway->select(['id' => $id])->toArray();
+            $content = $this->tableGateway->select(['id_state' => $id])->toArray();
         } catch (\Exception $e) {
             return new JsonResponse(
                 [
@@ -51,7 +51,7 @@ class Get implements MiddlewareInterface
             return new JsonResponse(
                 [
                     'code' => 404,
-                    'message' => 'This state was not found',
+                    'message' => 'This region was not found',
                     'description' => 'Not Found'
                 ],
             404);

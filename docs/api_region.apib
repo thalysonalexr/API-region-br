@@ -3,19 +3,176 @@ HOST: http://localhost:7000/v1
 
 # Region BR API
 
-br - API pública contendo as regiões, estados e cidades do Brasil.
-<br>en - API public contains all regions, states and cities from Brazil.
+(pt-br): API pública contendo as regiões, estados e cidades do Brasil.
+(en): API public contains all regions, states and cities from Brazil.
 
 # Group API-region-br
 
 ## About [/]
 
-br - API construida com respostas em formato JSON (JavaScript Object Notation) utilizando os métodos de requisição do protocolo HTTP, sendo POST GET, HEAD e OPTIONS.
-<br>en - API built with JavaScript Object Notation (JSON) format using HTTP request methods, being POST GET, HEAD and OPTIONS.
+(pt-br): API construida com respostas em formato JSON (JavaScript Object Notation) utilizando os métodos de requisição do protocolo HTTP, sendo POST GET, HEAD e OPTIONS.
+(en): API built with JavaScript Object Notation (JSON) format using HTTP request methods, being POST GET, HEAD and OPTIONS.
+
+### About API-region-br [GET]
+
++ Request Details from API
+
++ Response 200 (application/json)
+    + Attributes (About)
+
+## Group Test
+
+## Ping [/api/ping]
+
+Check the ping response
+
+### ACK ping [GET]
+
++ Request ACK ping
+
++ Response 200 (application/json)
+    + Attributes (Ping)
+
+## Group Version
+
+## Ping [/]
+
+### More details from api version [GET]
+
++ Request API version
+
++ Response 200 (application/json)
+    + Attributes (Version)
+
+## Group Regions
+
+## Regions [/regions]
+
+### List all regions [GET]
+
++ Request List all region
+
++ Response 200 (application/json)
+    + Attributes (array[Regions])
+
++ Response 404 (application/json)
+    + Attributes (Error)
+
++ Response 500 (application/json)
+    + Attributes (Error)
+
+## Regions [/regions/{id_region}]
+
+### List one region by id [GET]
+
++ Request List one region
+
++ Parameters
+    + id_region: 1 (number, required)
+
++ Response 200 (application/json)
+    + Attributes (array[Regions])
+
++ Response 400 (application/json)
+    + Attributes (Error)
+
++ Response 404 (application/json)
+    + Attributes (Error)
+
++ Response 500 (application/json)
+    + Attributes (Error)
+
+## Regions [/regions/{id_region}/states]
+
+### List all states by region [GET]
+
++ Request List all states by region
+
++ Parameters
+    + id_region: 1 (number, required)
+
++ Response 200 (application/json)
+    + Attributes (array[States])
+
++ Response 400 (application/json)
+    + Attributes (Error)
+
++ Response 404 (application/json)
+    + Attributes (Error)
+
++ Response 500 (application/json)
+    + Attributes (Error)
+{
+## Regions [/regions/{id_region}/states/{id_state}]
+
+### List one state by region [GET]
+
++ Request List one state by region
+
++ Parameters
+    + id_region: 1 (number, required)
+    + id_state: 1 (number, required)
+
++ Response 200 (application/json)
+    + Attributes (array[States])
+
++ Response 400 (application/json)
+    + Attributes (Error)
+
++ Response 404 (application/json)
+    + Attributes (Error)
+
++ Response 500 (application/json)
+    + Attributes (Error)
+
+## Regions [/regions/{id_region}/states/{id_state}/cities]
+
+### List all cities by state by region [GET]
+
++ Request List all cities by state by region
+
++ Parameters
+    + id_region: 1 (number, required)
+    + id_state: 1 (number, required)
+
++ Response 200 (application/json)
+    + Attributes (array[Cities])
+
++ Response 400 (application/json)
+    + Attributes (Error)
+
++ Response 404 (application/json)
+    + Attributes (Error)
+
++ Response 500 (application/json)
+    + Attributes (Error)
+
+## Regions [/regions/{id_region}/states/{id_state}/cities/{id_city}]
+
+### List one city by state by region [GET]
+
++ Request List one city by state by region
+
++ Parameters
+    + id_region: 1 (number, required)
+    + id_state: 1 (number, required)
+    + id_city: 1 (number, required)
+
++ Response 200 (application/json)
+    + Attributes (array[Cities])
+
++ Response 400 (application/json)
+    + Attributes (Error)
+
++ Response 404 (application/json)
+    + Attributes (Error)
+
++ Response 500 (application/json)
+    + Attributes (Error)
 
 ## Group States
 
-## Users [/states]
+## States [/states]
 
 ### List all states [GET]
 
@@ -30,14 +187,14 @@ br - API construida com respostas em formato JSON (JavaScript Object Notation) u
 + Response 500 (application/json)
     + Attributes (Error)
 
-## Users [/states/{id}]
+## States [/states/{id_state}]
 
-### List one state [GET]
+### List one state by id [GET]
 
 + Request List one state by id
 
 + Parameters
-    + id: 1 (number, required)
+    + id_state: 1 (number, required)
 
 + Response 200 (application/json)
     + Attributes (array[States])
@@ -51,15 +208,118 @@ br - API construida com respostas em formato JSON (JavaScript Object Notation) u
 + Response 500 (application/json)
     + Attributes (Error)
 
+## States [/states/{id_state}/cities]
+
+### List all cities by state [GET]
+
++ Request List all cities by state
+
++ Parameters
+    + id_state: 1 (number, required)
+
++ Response 200 (application/json)
+    + Attributes (array[Cities])
+
++ Response 400 (application/json)
+    + Attributes (Error)
+
++ Response 404 (application/json)
+    + Attributes (Error)
+
++ Response 500 (application/json)
+    + Attributes (Error)
+
+## States [/states/{id_state}/cities/{id_city}]
+
+### List one city by state [GET]
+
++ Request List one city by state
+
++ Parameters
+    + id_state: 1 (number, required)
+    + id_city: 1 (number, required)
+
++ Response 200 (application/json)
+    + Attributes (array[Cities])
+
++ Response 400 (application/json)
+    + Attributes (Error)
+
++ Response 404 (application/json)
+    + Attributes (Error)
+
++ Response 500 (application/json)
+    + Attributes (Error)
+
+## Group Cities
+
+## Cities [/cities]
+
+### List all cities [GET]
+
++ Request List all cities
+
++ Response 200 (application/json)
+    + Attributes (array[Cities])
+
++ Response 404 (application/json)
+    + Attributes (Error)
+
++ Response 500 (application/json)
+    + Attributes (Error)
+
+## States [/cities/{id_city}]
+
+### List one city by id [GET]
+
++ Request List one city by id
+
++ Parameters
+    + id_city: 1 (number, required)
+
++ Response 200 (application/json)
+    + Attributes (array[Cities])
+
++ Response 400 (application/json)
+    + Attributes (Error)
+
++ Response 404 (application/json)
+    + Attributes (Error)
+
++ Response 500 (application/json)
+    + Attributes (Error)
+
 <!-- Structures -->
 # Data Structures
 
+## Regions (object)
++ id (number) - Region code
++ initials (string) - Region abbreviation
++ name (string) - Region name
+
 ## States (object)
-+ id (number) - Code of state
-+ initials (string) - Initials of state
-+ name (string) - Name of state
++ id (number) - State code
++ initials (string) - State abbreviation
++ name (string) - State name
++ id_region (number) - Region code
+
+## Cities
++ id (number) - City code
++ id_state (number) - State code
++ name (string) - Name of the city
 
 ## Error (object)
 + code (number) - Status code
-+ message (string) - Message of status
-+ description (string) - Description of status
++ message (string) - Status message
++ description (string) - Status description
+
+## About
++ welcome (string) - Welcome message
++ docsUrl (string) - URL for this documentation
+
+## Ping
++ ack (number) - Time to response
+
+## Version
++ version (number) - Current version (V1)
++ description (string) - Details from api version (V1)

@@ -12,8 +12,20 @@ declare(strict_types=1);
 return [
     'dependencies' => [
         'factories' => [
+            App\Regions\Get::class => App\Regions\Factory::class,
+            App\Regions\GetAll::class => App\Regions\Factory::class,
+
             App\States\Get::class => App\States\Factory::class,
             App\States\GetAll::class => App\States\Factory::class,
+            App\States\GetAllByRegion::class => App\States\Factory::class,
+            App\States\GetOneByRegion::class => App\States\Factory::class,
+
+            App\Cities\Get::class => App\Cities\Factory::class,
+            App\Cities\GetAll::class => App\Cities\Factory::class,
+            App\Cities\GetAllByRegionState::class => App\Cities\Factory::class,
+            App\Cities\GetOneByRegionState::class => App\Cities\Factory::class,
+            App\Cities\GetAllByState::class => App\Cities\Factory::class,
+            App\Cities\GetOneByState::class => App\Cities\Factory::class,
         ],
     ],
 ];
