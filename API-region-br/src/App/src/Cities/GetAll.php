@@ -23,7 +23,26 @@ class GetAll implements MiddlewareInterface
     }
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface
     {
-        $content = $this->tableGateway->select()->toArray();
-        return new JsonResponse($content);
+        try {
+            $content = $this->tableGateway->select()->toArray();
+        } catch (\Exception $e) {
+            return new JsonResponse(
+                [
+                    'code' => 500,
+                    'message' => 'Error processing request',
+                    'description' => 'Server Error'
+                ]
+            );
+        }
+        if (count($content) === 0) {
+            return new JsonResponse(
+                [
+                    'code' => 404,
+                    'message' => 'This state was not found',
+                    'description' => 'Not Found'
+                ],
+            404);
+        }
+        return new JsonResponse($content, 200);
     }
 }
