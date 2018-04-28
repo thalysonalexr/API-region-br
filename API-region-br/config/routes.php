@@ -55,6 +55,8 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->get('/v1/regions/{id_region}/states/{id_state}', App\States\GetOneByRegion::class, 'regions.states.get');
     $app->get('/v1/regions/{id_region}/states/{id_state}/cities', App\Cities\GetAllByRegionState::class, 'regions.states.cities.all.get');
     $app->get('/v1/regions/{id_region}/states/{id_state}/cities/{id_city}', App\Cities\GetOneByRegionState::class, 'regions.states.cities.get');
+    $app->get('/v1/regions/{id_region}/cities', App\Cities\GetAllByRegion::class, 'regions.cities.all.get');
+    $app->get('/v1/regions/{id_region}/cities/{id_city}', App\Cities\GetOneByRegion::class, 'regions.cities.get');
 
     // Routes for States
     $app->get('/v1/states', App\States\GetAll::class, 'states.all.get');

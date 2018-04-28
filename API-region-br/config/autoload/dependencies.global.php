@@ -39,6 +39,8 @@ return [
             App\Cities\GetOneByRegionState::class => App\Cities\Factory::class,
             App\Cities\GetAllByState::class => App\Cities\Factory::class,
             App\Cities\GetOneByState::class => App\Cities\Factory::class,
+            App\Cities\GetAllByRegion::class => App\Cities\Factory::class,
+            App\Cities\GetOneByRegion::class => App\Cities\Factory::class,
         ],
     ],
     // Add the following to enable caching support:
