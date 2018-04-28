@@ -39,6 +39,7 @@
     "require": {
         "php": "^7.1",
         "roave/security-advisories": "dev-master",
+        "tuupola/cors-middleware": "^0.7.0",
         "zendframework/zend-component-installer": "^2.1.1",
         "zendframework/zend-config-aggregator": "^1.0",
         "zendframework/zend-db": "^2.9",

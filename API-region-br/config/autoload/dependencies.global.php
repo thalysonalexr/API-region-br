@@ -41,4 +41,13 @@ return [
             App\Cities\GetOneByState::class => App\Cities\Factory::class,
         ],
     ],
+    // Add the following to enable caching support:
+    'router' => [
+        'fastroute' => [
+             // Enable caching support:
+            'cache_enabled' => true,
+             // Optional (but recommended) cache file path:
+            'cache_file'    => 'data/cache/fastroute.php.cache',
+        ],
+    ]
 ];
